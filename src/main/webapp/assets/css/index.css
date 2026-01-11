@@ -1,0 +1,65 @@
+body {
+    padding-top: 70px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* HERO */
+.hero {
+    background: linear-gradient(to right, #0b7285, #15aabf);
+    color: white;
+    padding: 120px 20px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-top: 15px;
+}
+
+.hero-buttons {
+    margin-top: 30px;
+}
+
+/* SECTIONS */
+.section {
+    padding: 80px 20px;
+}
+
+/* FEATURE CARDS */
+.feature-card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+/* MODULE BOX */
+.module-box {
+    background: #e9f7f9;
+    padding: 25px;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.module-box:hover {
+    background: #15aabf;
+    color: white;
+}
+
+/* FOOTER */
+.footer {
+    background: #111;
+    color: #ccc;
+    padding: 20px;
+}

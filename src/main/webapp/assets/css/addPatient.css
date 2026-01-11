@@ -1,0 +1,30 @@
+body {
+    background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    min-height: 100vh;
+}
+
+.form-container {
+    margin-top: 120px;
+    margin-bottom: 60px;
+}
+
+.card {
+    border-radius: 15px;
+    background: #ffffff;
+    color: #000;
+}
+
+.card-header {
+    background: #ffc107;
+    border-radius: 15px 15px 0 0;
+}
+
+.footer {
+    background: #111;
+    padding: 15px;
+    color: #aaa;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
