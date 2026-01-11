@@ -43,7 +43,7 @@
           </form>
 
           <div class="text-center mt-3">
-            Not registered?
+            Not registered? Register here!..
             <a href="${pageContext.request.contextPath}/register">Sign up</a>
           </div>
 
