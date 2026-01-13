@@ -8,28 +8,31 @@ public class PatientService {
 
     private PatientDAO patientDAO = new PatientDAO();
 
-    // CREATE
-    public void addPatient(Patient patient) {
-        patientDAO.addPatient(patient);
+    public boolean addPatient(Patient p) {
+        return patientDAO.addPatient(p);
     }
 
-    // READ (ALL)
     public List<Patient> getAllPatients() {
         return patientDAO.getAllPatients();
     }
 
-    // READ (BY ID)
     public Patient getPatientById(int id) {
         return patientDAO.getPatientById(id);
     }
 
-    // UPDATE
-    public void updatePatient(Patient patient) {
-        patientDAO.updatePatient(patient);
+    public boolean updatePatient(Patient p) {
+        return patientDAO.updatePatient(p);
     }
+    
+    public boolean deletePatient(int id) {
+        return patientDAO.deletePatient(id);
+    }
+    
+    public int getTotalPatients() {
+        return patientDAO.getTotalPatients();
+    }
+    
+    
 
-    // DELETE
-    public void deletePatient(int id) {
-        patientDAO.deletePatient(id);
-    }
+
 }

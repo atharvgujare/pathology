@@ -44,7 +44,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Reports</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/addReport">Add Reports</a>
                 </li>
 
                 <li class="nav-item">
@@ -52,7 +52,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Appointments</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/addAppointment">Make Appointment</a>
                 </li>
 
                 <li class="nav-item">

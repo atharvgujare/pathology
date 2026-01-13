@@ -43,8 +43,8 @@
           </form>
 
           <div class="text-center mt-3">
-            Not registered........hijk?
-            <a href="${pageContext.request.contextPath}/register">Sign up</a>
+            
+            <a href="${pageContext.request.contextPath}/register">Not a User? | Sign up</a>
           </div>
 
         </div>

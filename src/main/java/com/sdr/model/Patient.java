@@ -8,15 +8,14 @@ public class Patient {
     private String firstName;
     private String lastName;
     private String gender;
-    private Date birthDate;
+    private String birthDate;
     private String mobile;
     private String email;
     private String aadhaar;
     private String address;
-    private Date admissionDate;
-    private Date createdAt;
+    private String admissionDate;
 
-    // ===== GETTERS & SETTERS =====
+    // Getters & Setters
 
     public int getId() {
         return id;
@@ -46,10 +45,10 @@ public class Patient {
         this.gender = gender;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -81,17 +80,11 @@ public class Patient {
         this.address = address;
     }
 
-    public Date getAdmissionDate() {
+    public String getAdmissionDate() {
         return admissionDate;
     }
-    public void setAdmissionDate(Date admissionDate) {
+    public void setAdmissionDate(String admissionDate) {
         this.admissionDate = admissionDate;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
 }

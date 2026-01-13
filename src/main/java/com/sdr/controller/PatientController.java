@@ -1,7 +1,6 @@
 package com.sdr.controller;
 
-import java.util.List;
-
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,38 +9,40 @@ import com.sdr.model.Patient;
 import com.sdr.service.PatientService;
 
 @Controller
-@RequestMapping("/patients")
 public class PatientController {
 
     private PatientService patientService = new PatientService();
 
-    // VIEW ALL PATIENTS
-    @GetMapping("/list")
-    public String patientList(Model model) {
-        List<Patient> list = patientService.getAllPatients();
-        model.addAttribute("patients", list);
+    @GetMapping("/patients")
+    public String viewPatients(Model model, HttpSession session) {
+        if (session.getAttribute("loggedUser") == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("patients", patientService.getAllPatients());
         return "patientList";
     }
 
-    // OPEN EDIT PAGE
-    @GetMapping("/edit/{id}")
-    public String editPatient(@PathVariable int id, Model model) {
-        Patient patient = patientService.getPatientById(id);
-        model.addAttribute("patient", patient);
+    @GetMapping("/editPatient")
+    public String editPatient(@RequestParam int id, Model model) {
+        model.addAttribute("patient", patientService.getPatientById(id));
         return "editPatient";
     }
 
-    // UPDATE PATIENT
-    @PostMapping("/update")
+    @PostMapping("/updatePatient")
     public String updatePatient(@ModelAttribute Patient patient) {
         patientService.updatePatient(patient);
-        return "redirect:/patients/list";
+        return "redirect:/patients";
+    }
+    
+    @GetMapping("/deletePatient")
+    public String deletePatient(@RequestParam int id, HttpSession session) {
+
+        if (session.getAttribute("loggedUser") == null) {
+            return "redirect:/login";
+        }
+
+        patientService.deletePatient(id);
+        return "redirect:/patients";
     }
 
-    // DELETE PATIENT
-    @GetMapping("/delete/{id}")
-    public String deletePatient(@PathVariable int id) {
-        patientService.deletePatient(id);
-        return "redirect:/patients/list";
-    }
 }
