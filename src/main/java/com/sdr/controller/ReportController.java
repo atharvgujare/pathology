@@ -1,12 +1,10 @@
 package com.sdr.controller;
 
-import java.io.File;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.sdr.model.Report;
 import com.sdr.service.ReportService;
@@ -14,79 +12,115 @@ import com.sdr.service.ReportService;
 @Controller
 public class ReportController {
 
-    private ReportService reportService = new ReportService();
+    private final ReportService reportService = new ReportService();
+    
+    // =========================
+    // SESSION CHECK (SAFE)
+    // =========================
+    private boolean isLoggedIn(HttpSession session) {
+        return session.getAttribute("username") != null
+            || session.getAttribute("loggedUser") != null;
+    }
 
+    // =========================
+    // ADD REPORT PAGE
+    // =========================
     @GetMapping("/addReport")
     public String addReport(HttpSession session) {
-        if (session.getAttribute("loggedUser") == null) return "redirect:/login";
+        if (!isLoggedIn(session)) {
+            return "redirect:/login";
+        }
         return "addReport";
     }
 
+    // =========================
+    // SAVE REPORT
+    // =========================
     @PostMapping("/saveReport")
-    public String saveReport(
-            @RequestParam(required = false, defaultValue = "0") int patientId,
-            @RequestParam String testName,
-            @RequestParam String testCategory,
-            @RequestParam String reportDate,
-            @RequestParam String resultSummary,
-            @RequestParam String remarks,
-            @RequestParam MultipartFile reportFile,
-            HttpSession session) {
+    public String saveReport(@ModelAttribute Report report,
+                             HttpSession session) {
 
-        if (session.getAttribute("loggedUser") == null) return "redirect:/login";
-        if (patientId == 0) return "redirect:/addReport";
-
-        try {
-            String uploadPath =
-                session.getServletContext().getRealPath("/uploads/reports/");
-            File dir = new File(uploadPath);
-            if (!dir.exists()) dir.mkdirs();
-
-            String fileName = reportFile.getOriginalFilename();
-            reportFile.transferTo(new File(uploadPath + fileName));
-
-            Report r = new Report();
-            r.setPatientId(patientId);
-            r.setTestName(testName);
-            r.setTestCategory(testCategory);
-            r.setReportDate(reportDate);
-            r.setResultSummary(resultSummary);
-            r.setRemarks(remarks);
-            r.setReportFile(fileName);
-
-            reportService.addReport(r);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (!isLoggedIn(session)) {
+            return "redirect:/login";
         }
 
+        reportService.addReport(report);
         return "redirect:/reports";
     }
 
+    // =========================
+    // REPORT LIST
+    // =========================
     @GetMapping("/reports")
-    public String reports(Model model, HttpSession session) {
-        if (session.getAttribute("loggedUser") == null) return "redirect:/login";
-        model.addAttribute("reports", reportService.getAllReports());
+    public String reportList(Model model,
+                             HttpSession session) {
+
+        if (!isLoggedIn(session)) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("reports",
+                reportService.getAllReports());
+
         return "reportList";
     }
 
+    // =========================
+    // EDIT REPORT PAGE  ✅ FIXED
+    // =========================
     @GetMapping("/editReport")
-    public String editReport(@RequestParam int id, Model model, HttpSession session) {
-        if (session.getAttribute("loggedUser") == null) return "redirect:/login";
-        model.addAttribute("report", reportService.getReportById(id));
-        return "editReport";
+    public String editReport(@RequestParam("id") int id,
+                             Model model,
+                             HttpSession session) {
+
+        System.out.println("EDIT REPORT HIT → id = " + id);
+
+        if (!isLoggedIn(session)) {
+            System.out.println("SESSION INVALID → REDIRECT");
+            return "redirect:/reports";
+        }
+
+        Report report = reportService.getReportById(id);
+
+        if (report == null) {
+            System.out.println("REPORT NOT FOUND → REDIRECT");
+            return "redirect:/reports";
+        }
+
+        model.addAttribute("report", report);
+        return "editReport";   // opens editReport.jsp
     }
 
+    // =========================
+    // UPDATE REPORT
+    // =========================
     @PostMapping("/updateReport")
-    public String updateReport(@ModelAttribute Report report, HttpSession session) {
-        if (session.getAttribute("loggedUser") == null) return "redirect:/login";
+    public String updateReport(@ModelAttribute Report report,
+                               HttpSession session) {
+
+        if (!isLoggedIn(session)) {
+            return "redirect:/login";
+        }
+
         reportService.updateReport(report);
         return "redirect:/reports";
     }
 
+    // =========================
+    // DELETE REPORT
+    // =========================
     @GetMapping("/deleteReport")
-    public String deleteReport(@RequestParam int id, HttpSession session) {
-        if (session.getAttribute("loggedUser") == null) return "redirect:/login";
+    public String deleteReport(@RequestParam("id") int id,
+                               HttpSession session) {
+
+        if (!isLoggedIn(session)) {
+            return "redirect:/login";
+        }
+
         reportService.deleteReport(id);
         return "redirect:/reports";
     }
+    
+    
+    
 }

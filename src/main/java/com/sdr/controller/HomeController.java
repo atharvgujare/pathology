@@ -5,26 +5,27 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.sdr.model.Patient;
 import com.sdr.service.AppointmentService;
 import com.sdr.service.PatientService;
+import com.sdr.service.ReportService;
 
 @Controller
 public class HomeController {
 
-    // Service object
     private PatientService patientService = new PatientService();
     private AppointmentService appointmentService = new AppointmentService();
+    private ReportService reportService = new ReportService();
 
-    // Default page
     @GetMapping("/")
     public String home() {
         return "login";
     }
-
+    
+    
     // Open Add Patient page
     @GetMapping("/addPatient")
     public String addPatientPage() {
@@ -51,6 +52,10 @@ public class HomeController {
         model.addAttribute("totalAppointments",
                 appointmentService.getTotalAppointments());
 
+        // ✅ ADD THIS
+        model.addAttribute("totalReports",
+                reportService.getTotalReports());
+
         model.addAttribute("recentAppointments",
                 appointmentService.getRecentAppointments());
 
@@ -59,10 +64,5 @@ public class HomeController {
 
         return "dashboard";
     }
-
-
-
-
-    
-   
 }
+

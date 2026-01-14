@@ -1,30 +1,61 @@
 package com.sdr.service;
 
 import java.util.List;
+
 import com.sdr.dao.ReportDAO;
 import com.sdr.model.Report;
 
 public class ReportService {
 
-    private ReportDAO reportDAO = new ReportDAO();
+    private ReportDAO dao = new ReportDAO();
 
-    public boolean addReport(Report r) {
-        return reportDAO.addReport(r);
+    // =========================
+    // ADD REPORT
+    // =========================
+    public void addReport(Report report) {
+        dao.addReport(report);
     }
 
+    // =========================
+    // GET ALL REPORTS
+    // =========================
     public List<Report> getAllReports() {
-        return reportDAO.getAllReports();
+        return dao.getAllReports();
     }
 
+    // =========================
+    // GET REPORT BY ID
+    // =========================
     public Report getReportById(int id) {
-        return reportDAO.getReportById(id);
+        return dao.getReportById(id);
     }
 
-    public boolean updateReport(Report r) {
-        return reportDAO.updateReport(r);
+    // =========================
+    // UPDATE REPORT
+    // =========================
+    public void updateReport(Report report) {
+        dao.updateReport(report);
     }
 
-    public boolean deleteReport(int id) {
-        return reportDAO.deleteReport(id);
+    // =========================
+    // DELETE REPORT
+    // =========================
+    public void deleteReport(int id) {
+        dao.deleteReport(id);
     }
+    
+    
+    public int getReportCount() {
+        return dao.getReportCount();
+    }
+    
+ 
+    public int getTotalReports() {
+        return dao.getTotalReports();
+    }
+
+
+    
+    
+
 }

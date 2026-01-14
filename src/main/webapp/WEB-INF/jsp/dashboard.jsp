@@ -71,6 +71,18 @@
                 </a>
             </div>
         </div>
+        
+        <div class="col-md-4">
+            <div class="card text-center p-4 shadow"
+               style="background: linear-gradient(135deg, #6f42c1, #845ef7); color:white;">
+               <h5>Total Reports</h5>
+               <h1 class="fw-bold">${totalReports}</h1>
+               <a href="reports" class="btn btn-light btn-sm mt-2">
+               View Reports
+              </a>
+           </div>
+        </div>
+
 
         <!-- Total Appointments -->
         <div class="col-md-4">
@@ -83,6 +95,9 @@
                 </a>
             </div>
         </div>
+        
+        
+        
 
     </div>
 
