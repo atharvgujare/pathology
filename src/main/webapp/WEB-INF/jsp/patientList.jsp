@@ -6,18 +6,33 @@
 <head>
     <title>Patient List</title>
 
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
           rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/assets/css/patientList.css">
 </head>
-<body>
+<body class="patient-list-page">
 
-<div class="container mt-4">
+<div class="container patient-list-container">
 
-    <h2 class="text-center mb-4">Patient List</h2>
+    <div class="page-header">
+        <h2>Patient List</h2>
+        <p>Manage and review registered patients</p>
+    </div>
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle">
-            <thead class="table-dark">
+    <!-- SEARCH BAR -->
+    <div class="search-bar mb-3">
+        <input type="text" id="searchInput"
+               class="form-control"
+               placeholder="Search by name, mobile or email...">
+    </div>
+
+    <div class="table-responsive patient-table-wrapper">
+        <table class="table patient-table align-middle">
+            <thead>
                 <tr>
                     <th>Sr. No.</th>
                     <th>ID</th>
@@ -27,11 +42,11 @@
                     <th>Mobile</th>
                     <th>Email</th>
                     <th>Admission Date</th>
-                    <th style="width:160px;">Actions</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody id="patientTableBody">
                 <c:choose>
                     <c:when test="${empty patients}">
                         <tr>
@@ -43,20 +58,15 @@
 
                     <c:otherwise>
                         <c:forEach var="p" items="${patients}" varStatus="status">
-                            <tr>
-                                <!-- 🔥 Sr. No. -->
+                            <tr class="row-animate">
                                 <td>${status.index + 1}</td>
-
-                                <!-- 🔐 Real DB ID -->
                                 <td>${p.id}</td>
-
                                 <td>${p.firstName}</td>
                                 <td>${p.lastName}</td>
                                 <td>${p.gender}</td>
                                 <td>${p.mobile}</td>
                                 <td>${p.email}</td>
                                 <td>${p.admissionDate}</td>
-
                                 <td>
                                     <a href="editPatient?id=${p.id}"
                                        class="btn btn-warning btn-sm">
@@ -77,12 +87,18 @@
         </table>
     </div>
 
-    <div class="text-center mt-3">
-        <a href="addPatient" class="btn btn-success me-2">Add Patient</a>
-        <a href="dashboard" class="btn btn-secondary">Back to Dashboard</a>
+    <div class="text-center mt-4">
+        <a href="addPatient" class="btn btn-success me-2">
+            Add Patient
+        </a>
+        <a href="dashboard" class="btn btn-outline-secondary">
+            Back to Dashboard
+        </a>
     </div>
 
 </div>
 
+<!-- Custom JS -->
+<script src="${pageContext.request.contextPath}/assets/js/patientList.js"></script>
 </body>
 </html>

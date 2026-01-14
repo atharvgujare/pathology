@@ -1,0 +1,89 @@
+/* PAGE */
+.appointment-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0b7285, #15aabf);
+}
+
+/* CONTAINER */
+.appointment-container {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+/* CARD */
+.appointment-card {
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.18);
+    overflow: hidden;
+}
+
+/* HEADER */
+.appointment-card .card-header {
+    background: linear-gradient(to right, #0b7285, #15aabf);
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+/* BODY */
+.appointment-card .card-body {
+    padding: 35px;
+}
+
+/* SECTION TITLES */
+.form-section-title {
+    font-weight: 700;
+    color: #0b7285;
+    border-left: 4px solid #15aabf;
+    padding-left: 10px;
+}
+
+/* INPUTS */
+.form-control,
+.form-select {
+    border-radius: 12px;
+    padding: 10px 14px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #15aabf;
+    box-shadow: 0 0 0 0.15rem rgba(21,170,191,0.35);
+}
+
+/* BUTTONS */
+.btn-success,
+.btn-outline-secondary {
+    border-radius: 30px;
+    font-weight: 600;
+}
+
+/* ERROR */
+.error-text {
+    font-size: 0.8rem;
+    color: red;
+}
+
+/* ANIMATION */
+.animate-fade {
+    animation: fadeIn 0.9s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 576px) {
+    .appointment-card .card-body {
+        padding: 22px;
+    }
+}
