@@ -20,30 +20,84 @@ public class HomeController {
     private AppointmentService appointmentService = new AppointmentService();
     private ReportService reportService = new ReportService();
 
+    // ================= HOME =================
     @GetMapping("/")
     public String home() {
+        return "index";
+    }
+    @GetMapping("/about")
+    public String about() {
+        return "about";   // about.jsp
+    }
+    @GetMapping("/service")
+    public String userservice() {
+        return "service";   
+    }
+    
+    
+
+    // ================= LOGIN =================
+    @GetMapping("/login")
+    public String loginPage() {
         return "login";
     }
-    
-    
-    // Open Add Patient page
+
+ // ================= ADD PATIENT =================
     @GetMapping("/addPatient")
-    public String addPatientPage() {
-        return "addPatient";
+    public String addPatientPage(HttpSession session) {
+
+        // Must be logged in
+        if (session.getAttribute("loggedUser") == null) {
+            return "redirect:/login";
+        }
+
+        String role = (String) session.getAttribute("userRole");
+
+        // Allow ONLY ADMIN + STAFF
+        if (!("ADMIN".equals(role)
+                || "RECEPTIONIST".equals(role)
+                || "TECHNICIAN".equals(role))) {
+            return "redirect:/"; // USER blocked
+        }
+
+        return "addPatient"; // addPatient.jsp
     }
 
-    // Save Patient
+
     @PostMapping("/savePatient")
-    public String savePatient(@ModelAttribute Patient patient) {
+    public String savePatient(@ModelAttribute Patient patient,
+                              HttpSession session) {
+
+        if (session.getAttribute("loggedUser") == null) {
+            return "redirect:/login";
+        }
+
+        String role = (String) session.getAttribute("userRole");
+
+        // Security: only ADMIN + STAFF can save
+        if (!("ADMIN".equals(role)
+                || "RECEPTIONIST".equals(role)
+                || "TECHNICIAN".equals(role))) {
+            return "redirect:/";
+        }
+
         patientService.addPatient(patient);
-        return "redirect:/patients";
+
+        return "redirect:/patients"; // ✅ patientList.jsp
     }
 
+
+    // ================= DASHBOARD =================
     @GetMapping("/dashboard")
     public String dashboard(Model model, HttpSession session) {
 
         if (session.getAttribute("loggedUser") == null) {
             return "redirect:/login";
+        }
+
+        // Only ADMIN allowed
+        if (!"ADMIN".equals(session.getAttribute("userRole"))) {
+            return "redirect:/";
         }
 
         model.addAttribute("totalPatients",
@@ -52,7 +106,6 @@ public class HomeController {
         model.addAttribute("totalAppointments",
                 appointmentService.getTotalAppointments());
 
-        // ✅ ADD THIS
         model.addAttribute("totalReports",
                 reportService.getTotalReports());
 
@@ -64,9 +117,6 @@ public class HomeController {
 
         return "dashboard";
     }
-    
-    
-    
-    
-}
 
+
+}

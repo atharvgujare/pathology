@@ -1,66 +1,62 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Login</title>
-    
-      <!-- Custom CSS -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.css">
 
-    <!-- Bootstrap (UNCHANGED) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 
-  
+    <!-- Custom CSS -->
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/assets/css/login.css">
 </head>
 
-<body class="bg-light login-page">
+<body class="login-page">
 
 <div class="login-wrapper">
     <div class="login-card animate-fade">
 
+        <!-- ROLE HEADER -->
         <div class="login-header">
-            <h3>🧪 Pathology Login</h3>
-            <p>Secure access to your dashboard</p>
+            <h3 id="roleTitle">Admin Login</h3>
+            <p id="roleDesc">System administrator access</p>
         </div>
 
+        <!-- FORM -->
         <div class="login-body">
+            <form action="${pageContext.request.contextPath}/login"
+                  method="post"
+                  id="loginForm">
 
-            <!-- SUCCESS MESSAGE -->
-            <c:if test="${not empty success}">
-                <div class="alert alert-success animate-slide">${success}</div>
-            </c:if>
+                <input type="hidden" name="role" id="roleInput" value="ADMIN">
 
-            <!-- ERROR MESSAGE -->
-            <c:if test="${not empty error}">
-                <div class="alert alert-danger animate-shake">${error}</div>
-            </c:if>
-
-            <!-- FORM (UNCHANGED ACTION & NAMES) -->
-            <form method="post" action="${pageContext.request.contextPath}/login" id="loginForm">
-
-                <div class="form-group">
+                <div class="mb-3">
                     <label>Username</label>
-                    <input type="text" name="username" class="form-control" required>
-                    <small class="error-text"></small>
+                    <input name="username"
+                           class="form-control"
+                           required>
                 </div>
 
-                <div class="form-group">
+                <div class="mb-3">
                     <label>Password</label>
-                    <input type="password" name="password" class="form-control" required>
-                    <small class="error-text"></small>
+                    <input type="password"
+                           name="password"
+                           class="form-control"
+                           required>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100 mt-3">
+                <button type="submit" class="btn btn-primary w-100">
                     Login
                 </button>
             </form>
 
-            <div class="text-center mt-3">
-                <a href="${pageContext.request.contextPath}/register">
-                    Not a User? | Sign up
-                </a>
+            <!-- ROLE SWITCH -->
+            <div class="role-switch">
+                <button id="prevRole" type="button">←</button>
+                <span id="roleName">ADMIN</span>
+                <button id="nextRole" type="button">→</button>
             </div>
 
         </div>
@@ -69,7 +65,5 @@
 
 <!-- Custom JS -->
 <script src="${pageContext.request.contextPath}/assets/js/login.js"></script>
-
-
 </body>
 </html>

@@ -96,6 +96,19 @@
             </div>
         </div>
         
+        <!-- Manage Staff -->
+        <div class="col-md-4">
+         <div class="card text-center p-4 shadow"
+           style="background: linear-gradient(135deg, #ff416c, #ff4b2b); color:white;">
+            <h5>Manage Staff</h5>
+            <p class="small opacity-75">Add, view & manage staff members</p>
+            <a href="staff/manage" class="btn btn-light btn-sm mt-2">
+            Open Staff Panel
+            </a>
+          </div>
+         </div>
+        
+        
         
         
 
@@ -152,6 +165,8 @@
         <a href="addPatient" class="btn btn-success me-2">Add Patient</a>
         <a href="patients" class="btn btn-primary me-2">Patient List</a>
         <a href="appointments" class="btn btn-info me-2">Appointments</a>
+        <a href="/" class="btn btn-secondary me-2">⬅ Back to Home</a>
+        
         <a href="login" class="btn btn-danger">Logout</a>
     </div>
 

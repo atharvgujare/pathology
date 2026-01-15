@@ -1,3 +1,7 @@
+
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -11,68 +15,30 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
 </head>
 
-<body class="light-theme">
-
-<!-- ================= NAVBAR ================= -->
-<nav class="navbar custom-navbar fixed-top">
-    <div class="container-fluid nav-container">
-
-        <button class="mobile-toggle d-lg-none" id="menuToggle">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-
-        <!-- Brand -->
-        <a class="navbar-brand mx-lg-0 mx-auto" href="${pageContext.request.contextPath}/">
-            🧬 PathologyLab
-        </a>
-
-        <!-- Desktop Nav -->
-        <ul class="nav-links d-none d-lg-flex">
-            <li><a href="${pageContext.request.contextPath}/">Home</a></li>
-            <li><a href="${pageContext.request.contextPath}/addPatient">Add Patient</a></li>
-            <li><a href="${pageContext.request.contextPath}/patients">View Patients</a></li>
-            <li><a href="${pageContext.request.contextPath}/addReport">Add Reports</a></li>
-            <li><a href="${pageContext.request.contextPath}/dashboard">Dashboard</a></li>
-            <li><a href="${pageContext.request.contextPath}/addAppointment">Appointment</a></li>
-            <li><a href="#">Staff</a></li>
-            <li><a href="#">Billing</a></li>
-        </ul>
-
-        <!-- Profile -->
-        <div class="profile-section" id="profileBtn">
-            <div class="profile-circle">A</div>
+<body class="light-theme" data-loggedin="${not empty sessionScope.loggedUser}">
+<c:choose>
+    <c:when test="${not empty sessionScope.loggedUser 
+                   and sessionScope.userRole eq 'USER'}">
+        <div class="d-flex align-items-center gap-2">
+            <span>👤 ${sessionScope.loggedUser}</span>
+            <a href="${pageContext.request.contextPath}/logout"
+               class="btn btn-sm btn-danger">
+                Logout
+            </a>
         </div>
-    </div>
-</nav>
+    </c:when>
 
-<!-- ================= SIDEBAR (MOBILE) ================= -->
-<div class="sidebar" id="sidebar">
-    <a href="${pageContext.request.contextPath}/">Home</a>
-    <a href="${pageContext.request.contextPath}/addPatient">Add Patient</a>
-    <a href="${pageContext.request.contextPath}/patients">View Patients</a>
-    <a href="${pageContext.request.contextPath}/addReport">Add Reports</a>
-    <a href="${pageContext.request.contextPath}/dashboard">Dashboard</a>
-    <a href="${pageContext.request.contextPath}/addAppointment">Appointment</a>
-    <a href="#">Staff</a>
-    <a href="#">Billing</a>
-</div>
+    <c:otherwise>
+        <a href="${pageContext.request.contextPath}/login"
+           class="login-btn">
+            Login
+        </a>
+    </c:otherwise>
+</c:choose>
 
-<!-- ================= PROFILE POPUP ================= -->
-<div class="profile-popup" id="profilePopup">
-    <h6>User Profile</h6>
-    <p><strong>Name:</strong> Atharv</p>
-    <p><strong>Email:</strong> user@email.com</p>
+<jsp:include page="/WEB-INF/jsp/userNavbar.jsp"/>
 
-    <div class="theme-toggle">
-        <label>Dark Mode</label>
-        <input type="checkbox" id="themeSwitch">
-    </div>
 
-    <button class="btn btn-danger w-100 mt-2">Logout</button>
-</div>
 
 <!-- ================= CAROUSEL ================= -->
 <section class="carousel-section">
@@ -97,6 +63,18 @@
     </div>
 </section>
 
+<section class="py-5 text-center bg-light">
+    <div class="container">
+        <h1 class="fw-bold">Trusted Digital Pathology Services</h1>
+        <p class="mt-3">
+            Accurate diagnostics, secure reports, and easy appointment booking.
+        </p>
+    </div>
+</section>
+
+<jsp:include page="signupCTA.jsp"/>
+
+
 
 
 <!-- ================= ACTION CARDS ================= -->
@@ -104,27 +82,70 @@
     <div class="container">
         <div class="row g-4">
 
+            <!-- BOOK APPOINTMENT -->
             <div class="col-md-6">
-                <div class="action-card animate-on-scroll">
-                    <h3>Add Patient</h3>
-                    <p>Register and manage patient records efficiently</p>
-                    <a href="${pageContext.request.contextPath}/addPatient"
-                       class="btn btn-warning">Add Patient</a>
+                <div class="action-card">
+                    <h3>Book Appointment</h3>
+                    <p>Schedule lab tests and appointments easily</p>
+
+                    <c:choose>
+                        <c:when test="${not empty sessionScope.loggedUser 
+                                       and sessionScope.userRole eq 'USER'}">
+                            <a href="${pageContext.request.contextPath}/addAppointment"
+                               class="btn btn-primary">
+                                Book Now
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <button class="btn btn-primary protected-btn">
+                                Book Now
+                            </button>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
 
+            <!-- TRACK REPORT -->
             <div class="col-md-6">
-                <div class="action-card animate-on-scroll">
-                    <h3>Dashboard</h3>
-                    <p>View analytics, reports and performance insights</p>
-                    <a href="${pageContext.request.contextPath}/dashboard"
-                       class="btn btn-outline-light">Open Dashboard</a>
+                <div class="action-card">
+                    <h3>Track Report</h3>
+                    <p>View and download pathology reports</p>
+
+                    <c:choose>
+                        <c:when test="${not empty sessionScope.loggedUser 
+                                       and sessionScope.userRole eq 'USER'}">
+                            <a href="${pageContext.request.contextPath}/reports"
+                               class="btn btn-outline-primary">
+                                Track Report
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <button class="btn btn-outline-primary protected-btn">
+                                Track Report
+                            </button>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
 
         </div>
     </div>
 </section>
+
+<!-- ================= LOGIN REQUIRED POPUP ================= -->
+<c:if test="${empty sessionScope.loggedUser}">
+    <div class="login-popup" id="loginPopup">
+        <h5>Login Required</h5>
+        <p>Please sign in to continue.</p>
+
+        <a href="${pageContext.request.contextPath}/login"
+           class="btn btn-primary w-100">
+            Go to Login
+        </a>
+    </div>
+    <div class="overlay" id="overlay"></div>
+</c:if>
+
 
 
 <!-- ================= STATS ================= -->
@@ -305,11 +326,45 @@
     </div>
 </section>
 
-<footer class="footer">
-    <p>© 2026 PathologyLab | Developed by Atharv</p>
+<footer class="bg-dark text-light mt-5">
+    <div class="container py-4 text-center">
+        <a href="${pageContext.request.contextPath}/privacy" class="text-light me-3">
+            Privacy Policy
+        </a>
+        <a href="${pageContext.request.contextPath}/terms" class="text-light me-3">
+            Terms
+        </a>
+        <a href="${pageContext.request.contextPath}/faq" class="text-light">
+            FAQ
+        </a>
+
+        <p class="mt-3 mb-0 text-secondary">
+            © 2026 PathologyLab
+        </p>
+    </div>
 </footer>
+
+
+
+
+<!-- LOGIN REQUIRED POPUP -->
+<div class="login-popup" id="loginRequiredPopup">
+    <h5>Login Required</h5>
+    <p>Please sign in to continue.</p>
+
+    <a href="${pageContext.request.contextPath}/login"
+       class="btn btn-primary w-100">
+        Go to Login
+    </a>
+</div>
+
+<div class="overlay" id="loginOverlay"></div>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/index.js"></script>
+
+
 </body>
 </html>

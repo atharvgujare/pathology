@@ -1,0 +1,300 @@
+/* ================= BASE ================= */
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+}
+
+/* ================= NAVBAR ================= */
+.custom-navbar {
+    background: linear-gradient(135deg, #4c1d95, #7c3aed);
+    padding: 10px 20px;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: #fff !important;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 18px;
+}
+
+.nav-links li a {
+    color: #e9d5ff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links li a:hover {
+    color: #ffffff;
+}
+
+/* ================= MOBILE TOGGLE ================= */
+.mobile-toggle {
+    width: 40px;
+    height: 32px;
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.mobile-toggle span {
+    height: 4px;
+    background: white;
+    border-radius: 4px;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100vh;
+    background: linear-gradient(135deg, #4c1d95, #6d28d9);
+    padding: 25px;
+    transition: left 0.35s ease;
+    z-index: 1200;
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar a {
+    display: block;
+    color: #ede9fe;
+    text-decoration: none;
+    margin-bottom: 18px;
+    font-weight: 500;
+}
+
+/* ================= PROFILE ================= */
+.profile-circle {
+    width: 42px;
+    height: 42px;
+    background: #ede9fe;
+    color: #4c1d95;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.profile-popup {
+    position: fixed;
+    top: 75px;
+    right: 20px;
+    background: white;
+    padding: 18px;
+    border-radius: 14px;
+    width: 220px;
+    display: none;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.2);
+    z-index: 2000;
+}
+
+/* ================= HERO ================= */
+.carousel-section {
+    margin-top: 80px;
+    height: 50vh;
+    background: linear-gradient(
+        rgba(76,29,149,0.9),
+        rgba(124,58,237,0.9)
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.carousel-overlay h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: white;
+}
+
+.carousel-overlay p {
+    color: #ddd6fe;
+    font-size: 1.1rem;
+}
+
+/* ================= ACTION CARDS ================= */
+.action-section {
+    padding: 80px 0;
+}
+
+.action-card {
+    background: white;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 25px 55px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: 0.4s ease;
+}
+
+.action-card:hover {
+    transform: translateY(-12px);
+}
+
+.action-card h3 {
+    color: #4c1d95;
+    font-weight: 700;
+}
+
+.action-card p {
+    color: #6b7280;
+}
+
+/* ================= STATS ================= */
+.stats-section {
+    background: #ede9fe;
+    padding: 70px 0;
+}
+
+.stat-box {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.1);
+}
+
+.stat-box h2 {
+    color: #4c1d95;
+    font-weight: 800;
+}
+
+/* ================= WORKFLOW ================= */
+.experience-flow {
+    padding: 80px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: 800;
+    color: #4c1d95;
+}
+
+/* ================= STAFF QUICK ACCESS ================= */
+.staff-quick-section {
+    padding: 80px 0;
+    background: #f5f7fb;
+}
+
+.staff-card {
+    background: white;
+    border-radius: 22px;
+    padding: 35px;
+    text-align: center;
+    box-shadow: 0 22px 50px rgba(0,0,0,0.12);
+    transition: 0.4s ease;
+    height: 100%;
+}
+
+.staff-card:hover {
+    transform: translateY(-14px);
+    box-shadow: 0 35px 70px rgba(0,0,0,0.18);
+}
+
+/* ICON */
+.staff-card-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, #4c1d95, #7c3aed);
+    color: white;
+    font-size: 1.8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* TEXT */
+.staff-card h4 {
+    font-weight: 700;
+    color: #4c1d95;
+}
+
+.staff-card p {
+    color: #6b7280;
+    margin: 12px 0 20px;
+}
+
+/* BUTTON */
+.staff-card .btn-outline-primary {
+    border-radius: 30px;
+    border-color: #7c3aed;
+    color: #7c3aed;
+    font-weight: 600;
+}
+
+.staff-card .btn-outline-primary:hover {
+    background: #7c3aed;
+    color: white;
+}
+
+
+.flow {
+    max-width: 650px;
+    margin: auto;
+}
+
+.flow-step {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.1);
+}
+
+.flow-step span {
+    width: 42px;
+    height: 42px;
+    background: #7c3aed;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+/* ================= FOOTER ================= */
+.footer {
+    background: #1f2937;
+    color: #9ca3af;
+    padding: 20px;
+    text-align: center;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .carousel-overlay h1 {
+        font-size: 2rem;
+    }
+
+    .nav-links {
+        display: none;
+    }
+}

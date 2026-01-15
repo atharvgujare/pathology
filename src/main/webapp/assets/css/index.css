@@ -13,146 +13,238 @@ body {
     color: #fff;
 }
 
-/* NAVBAR */
-.custom-navbar {
-    background: #0b7285;
-    padding: 10px 20px;
+/* ================= BASE ================= */
+.user-navbar {
+    height: 64px;
+    background: #111827;
     color: white;
-}
-/* OFFSET CONTENT BELOW NAVBAR */
-.page-offset {
-    padding-top: 100px;
-}
-
-
-.nav-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 18px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
+/* LEFT */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* BRAND */
+.brand {
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+/* DESKTOP LINKS */
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 18px;
+    gap: 22px;
+    margin: 0;
+    padding: 0;
 }
-.nav-links li a {
-    color: white;
+
+.nav-links a {
+    color: #d1d5db;
     text-decoration: none;
     font-weight: 500;
 }
 
-.profile-circle {
-    width: 40px;
-    height: 40px;
-    background: #fff;
-    color: #0b7285;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
+.nav-links a:hover {
+    color: #ffffff;
+}
+
+/* LOGIN */
+.login-btn {
+    background: transparent;
+    border: 1px solid #38bdf8;
+    color: #38bdf8;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
     cursor: pointer;
 }
-.profile-popup {
-    animation: popupFade 0.3s ease;
+
+.login-btn:hover {
+    background: #38bdf8;
+    color: #000;
 }
 
-@keyframes popupFade {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* MOBILE TOGGLE BUTTON */
-.mobile-toggle {
-    width: 40px;
-    height: 32px;
+/* ================= MOBILE TOGGLE ================= */
+.menu-toggle {
+    width: 34px;
+    height: 26px;
     background: none;
     border: none;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
-    padding: 4px;
 }
 
-.mobile-toggle span {
-    height: 4px;
-    width: 100%;
+.menu-toggle span {
+    height: 3px;
     background: white;
-    border-radius: 4px;
-    transition: 0.3s ease;
+    border-radius: 3px;
 }
 
-/* Animate to "X" when sidebar open */
-.sidebar.open ~ .custom-navbar .mobile-toggle span:nth-child(1) {
-    transform: rotate(45deg) translateY(10px);
-}
-
-.sidebar.open ~ .custom-navbar .mobile-toggle span:nth-child(2) {
-    opacity: 0;
-}
-
-.sidebar.open ~ .custom-navbar .mobile-toggle span:nth-child(3) {
-    transform: rotate(-45deg) translateY(-10px);
-}
-
-
-
-/* SIDEBAR */
+/* ================= SIDEBAR ================= */
 .sidebar {
     position: fixed;
     top: 0;
-    left: -260px;
-    width: 260px;
+    left: -280px;
+    width: 280px;
     height: 100vh;
-    background: #0b7285;
-    padding: 30px 20px;
-    transition: left 0.35s ease;
-    z-index: 1500;
+    background: linear-gradient(135deg, #0f172a, #111827);
+    box-shadow: 25px 0 60px rgba(0,0,0,0.35);
+    z-index: 1400;
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
 }
 
-/* OPEN STATE */
 .sidebar.open {
     left: 0;
 }
 
-/* Disable body scroll when sidebar open */
-.no-scroll {
-    overflow: hidden;
+/* HEADER */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-/* Sidebar links */
-.sidebar a {
+.sidebar-brand {
+    color: #38bdf8;
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.sidebar-close {
+    background: none;
+    border: none;
+    color: #e5e7eb;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* LINKS */
+.sidebar-links {
+    padding: 25px 20px;
+    flex: 1;
+}
+
+.sidebar-links a {
     display: block;
-    color: white;
-    margin-bottom: 18px;
-    font-size: 1rem;
+    padding: 12px 14px;
+    border-radius: 12px;
+    color: #e5e7eb;
     text-decoration: none;
     font-weight: 500;
+    margin-bottom: 8px;
+    transition: 0.25s ease;
 }
 
+.sidebar-links a:hover {
+    background: rgba(56,189,248,0.15);
+    color: #38bdf8;
+    transform: translateX(6px);
+}
+.overlay {
+    pointer-events: none;
+}
 
-/* PROFILE POPUP */
-.profile-popup {
+.overlay.show {
+    pointer-events: auto;
+}
+
+/* ================= POPUP ================= */
+.login-popup {
     position: fixed;
-    top: 80px;              /* below navbar */
-    right: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
     background: white;
-    padding: 15px;
-    border-radius: 12px;
-    width: 220px;
+    padding: 25px;
+    border-radius: 16px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.4);
     display: none;
-    z-index: 2000;          /* 🔥 ABOVE carousel & cards */
-    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    z-index: 1600;
 }
+
+.login-popup.show {
+    display: block;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* ================= OVERLAY ================= */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    z-index: 1500;
+}
+
+.overlay.show {
+    display: block;
+}
+
+
+/* ================= LOGIN POPUP ================= */
+.login-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: white;
+    color: #111827;
+    padding: 25px;
+    border-radius: 16px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    display: none;
+    z-index: 1300;
+}
+
+.login-popup.show {
+    display: block;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* OVERLAY */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 1250;
+}
+
+.overlay.show {
+    display: block;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (min-width: 992px) {
+    .menu-toggle {
+        display: none;
+    }
+}
+
 
 
 /* CAROUSEL */
@@ -180,21 +272,68 @@ body {
 
 
 
-/* ACTION CARDS */
-.action-card {
-    background: linear-gradient(135deg, #0b7285, #15aabf);
-    color: white;
-    padding: 40px;
-    border-radius: 18px;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: 0.6s;
-}
+/* ACTION SECTION */
 .action-section {
-    margin-top: 120px;   /* ⬇ cards appear after popup zone */
-    padding-bottom: 80px;
+    padding: 80px 0;
+    background: #f8f9fa;
 }
+
+.action-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.action-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.action-card h3 {
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.action-card p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* LOGIN POPUP */
+.login-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 320px;
+    z-index: 1001;
+    display: none;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.login-popup.show {
+    display: block;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 1000;
+}
+
+.overlay.show {
+    display: block;
+}
+
 
 
 .smart-features {
@@ -375,6 +514,8 @@ body {
     text-align: center;
 }
 
+
+
 /* FOOTER */
 .footer {
     background: #111;
@@ -382,3 +523,36 @@ body {
     padding: 20px;
     text-align: center;
 }
+
+.login-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    display: none;
+    z-index: 2000;
+}
+
+.login-popup.show {
+    display: block;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    z-index: 1990;
+}
+
+.overlay.show {
+    display: block;
+}
+

@@ -1,36 +1,51 @@
-document.addEventListener("DOMContentLoaded", () => {
+const roles = [
+    {
+        name: "ADMIN",
+        title: "Admin Login",
+        desc: "System administrator access"
+    },
+    {
+        name: "RECEPTIONIST",
+        title: "Reception Login",
+        desc: "Patient & appointment management"
+    },
+    {
+        name: "TECHNICIAN",
+        title: "Technician Login",
+        desc: "Lab reports & diagnostics"
+    },
+    {
+        name: "USER",
+        title: "User Login",
+        desc: "General system access"
+    }
+];
 
-    const form = document.getElementById("loginForm");
-    const inputs = form.querySelectorAll("input");
+let current = 0;
 
-    form.addEventListener("submit", (e) => {
-        let valid = true;
+const roleTitle = document.getElementById("roleTitle");
+const roleDesc = document.getElementById("roleDesc");
+const roleName = document.getElementById("roleName");
+const roleInput = document.getElementById("roleInput");
+const card = document.querySelector(".login-card");
 
-        inputs.forEach(input => {
-            const error = input.nextElementSibling;
+function updateRole() {
+    card.classList.remove("animate-fade");
+    void card.offsetWidth; // restart animation
+    card.classList.add("animate-fade");
 
-            if (input.value.trim() === "") {
-                error.textContent = input.name + " is required";
-                input.classList.add("is-invalid");
-                valid = false;
-            } else {
-                error.textContent = "";
-                input.classList.remove("is-invalid");
-            }
-        });
+    roleTitle.innerText = roles[current].title;
+    roleDesc.innerText = roles[current].desc;
+    roleName.innerText = roles[current].name;
+    roleInput.value = roles[current].name;
+}
 
-        if (!valid) {
-            e.preventDefault();
-            form.classList.add("animate-shake");
-            setTimeout(() => form.classList.remove("animate-shake"), 400);
-        }
-    });
+document.getElementById("nextRole").onclick = () => {
+    current = (current + 1) % roles.length;
+    updateRole();
+};
 
-    inputs.forEach(input => {
-        input.addEventListener("input", () => {
-            input.classList.remove("is-invalid");
-            input.nextElementSibling.textContent = "";
-        });
-    });
-
-});
+document.getElementById("prevRole").onclick = () => {
+    current = (current - 1 + roles.length) % roles.length;
+    updateRole();
+};
